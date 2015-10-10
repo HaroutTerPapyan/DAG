@@ -23,6 +23,9 @@ public class DAG {
             readInputData();
         }
 
+
+
+
     private void readInputData() throws Exception{
 
         java.io.File inputFile = new java.io.File(inputFileName);
