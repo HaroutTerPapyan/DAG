@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class testDAG {
     public static void main( String[] args) throws Exception {
 
-        DAG g1 = new DAG("testCase1.txt");
+        DAG g1 = new DAG("testCase2.txt");
         g1.printGraph();
     }
 

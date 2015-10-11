@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 import java.io.*;
 
 /**
@@ -7,31 +7,35 @@ import java.io.*;
 
 public class DAG {
 
-        private String inputFileName;
-        private int[][] adjMatrix;
-        private int[] visited;
-        private int[] paths;
-        private int numVertices;
-        private int numEdges;
-        private int[] parent;
+    private String inputFileName;
+    private int[][] adjMatrix;
+    private int[] visited;
+    private int[] paths;
+    private int numVertices;
+    private int numEdges;
+    private int[] parent;
+    private int[] inEdge;
+    private int startV;
+    private Stack<Integer> stack;
 
-        public DAG(String inputFileName) throws Exception{
-            this.inputFileName = inputFileName;
-            numVertices = 0;
-            numEdges = 0;
-            readInputData();
-        }
+    public DAG(String inputFileName) throws Exception{
+        this.inputFileName = inputFileName;
+        numVertices = 0;
+        numEdges = 0;
+        readInputData();
+    }
 
     public void printGraph() {
-        for(int k = 0; k < numVertices; k++){
-            for(int j = 0; j < numVertices; j++)
+        for(int k = 1; k < numVertices; k++){
+            for(int j = 1; j < numVertices; j++)
                 System.out.print(adjMatrix[k][j] + " ");
             System.out.println();
         }
         System.out.println();
+        checkIncoming(adjMatrix);
+        System.out.println();
+        startNode(inEdge);
     }
-
-    
 
     private void readInputData() throws Exception{
 
@@ -50,4 +54,40 @@ public class DAG {
         }
     }
 
+    public int[] checkIncoming(int[][] matrix) {
+        inEdge = new int[numVertices];
+        matrix = adjMatrix;
+        for(int i = 1; i < numVertices; i++) {
+            for(int j = 1; j < numVertices; j++) {
+                if(matrix[j][i] == 1)
+                    inEdge[i] = 1;
+            }
+        }
+
+        System.out.println("1 indicates incoming edges");
+        for(int i = 1; i < numVertices; i++) {
+            System.out.print("vertex " + i + " : " + inEdge[i]);
+            if(inEdge[i] == 1) {
+                System.out.print(" incoming edge");
+            }
+            System.out.println();
+        }
+        return inEdge;
+    }
+
+    public int startNode(int[] checkVertex) {
+
+        for(int i = 1; i < numVertices; i++) {
+            if(checkVertex[i] == 0) {
+                System.out.println("Vertex " + i + " is a starting node");
+                startV = i;
+                break;
+            }
+        }
+        return startV;
+    }
+
+    public static void topSort(int start) {
+
+    }
 }
