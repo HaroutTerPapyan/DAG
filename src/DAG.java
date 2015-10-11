@@ -35,6 +35,9 @@ public class DAG {
         checkIncoming(adjMatrix);
         System.out.println();
         startNode(inEdge);
+        System.out.println();
+        topSort(startV);
+
     }
 
     private void readInputData() throws Exception{
@@ -59,11 +62,11 @@ public class DAG {
         matrix = adjMatrix;
         for(int i = 1; i < numVertices; i++) {
             for(int j = 1; j < numVertices; j++) {
-                if(matrix[j][i] == 1)
+                if(matrix[j][i] == 1) {
                     inEdge[i] = 1;
+                }
             }
         }
-
         System.out.println("1 indicates incoming edges");
         for(int i = 1; i < numVertices; i++) {
             System.out.print("vertex " + i + " : " + inEdge[i]);
@@ -87,7 +90,25 @@ public class DAG {
         return startV;
     }
 
-    public static void topSort(int start) {
+    public void topSort(int vertex) {
 
+        int[][] matrix = adjMatrix;
+        int[] tSort = new int[numVertices];
+        int numIn = 0;
+
+        System.out.println("Topological Sort: " + vertex + " ");
+
+        int i = 1;
+        while (i < numVertices) {
+            for(int j = 1; j < numVertices; j++) {
+                if (matrix[j][i] == 1) {
+                    numIn++;
+                }
+            }
+            System.out.println("Num incoming edges for " + i + " " + numIn);
+            i++;
+            numIn = 0;
+        }
     }
+    
 }
