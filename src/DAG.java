@@ -11,7 +11,6 @@ public class DAG {
         private int[][] adjMatrix;
         private int[] visited;
         private int[] paths;
-        //other private fields
         private int numVertices;
         private int numEdges;
         private int[] parent;
@@ -23,7 +22,14 @@ public class DAG {
             readInputData();
         }
 
-
+    public void printGraph() {
+        for(int k = 0; k < numVertices; k++){
+            for(int j = 0; j < numVertices; j++)
+                System.out.print(adjMatrix[k][j] + " ");
+            System.out.println();
+        }
+        System.out.println();
+    }
 
 
     private void readInputData() throws Exception{
