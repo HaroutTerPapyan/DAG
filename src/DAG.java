@@ -105,10 +105,10 @@ public class DAG {
                     numIn++;
                 }
             }
-            System.out.println("Num incoming edges for " + i + " " + numIn);
+            System.out.println("Num incoming edges for vertex " + i + " is " + numIn);
             i++;
             numIn = 0;
         }
     }
-    
+
 }
