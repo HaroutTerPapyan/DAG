@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.*;
 
@@ -9,14 +10,12 @@ public class DAG {
 
     private String inputFileName;
     private int[][] adjMatrix;
-    private int[] visited;
-    private int[] paths;
     private int numVertices;
     private int numEdges;
-    private int[] parent;
     private int[] inEdge;
     private int startV;
-    private Stack<Integer> stack;
+    private ArrayList visited = new ArrayList();
+    private ArrayList remove = new ArrayList();
 
     public DAG(String inputFileName) throws Exception{
         this.inputFileName = inputFileName;
@@ -37,6 +36,7 @@ public class DAG {
         startNode(inEdge);
         System.out.println();
         topSort(startV);
+        System.out.println();
 
     }
 
@@ -58,6 +58,8 @@ public class DAG {
     }
 
     public int[] checkIncoming(int[][] matrix) {
+
+
         inEdge = new int[numVertices];
         matrix = adjMatrix;
         for(int i = 1; i < numVertices; i++) {
@@ -67,6 +69,7 @@ public class DAG {
                 }
             }
         }
+
         System.out.println("1 indicates incoming edges");
         for(int i = 1; i < numVertices; i++) {
             System.out.print("vertex " + i + " : " + inEdge[i]);
@@ -75,6 +78,7 @@ public class DAG {
             }
             System.out.println();
         }
+
         return inEdge;
     }
 
@@ -84,9 +88,16 @@ public class DAG {
             if(checkVertex[i] == 0) {
                 System.out.println("Vertex " + i + " is a starting node");
                 startV = i;
-                break;
+                visited.add(i);
+                //break;
+            }
+            else {
+                System.out.println("Vertex " + i + " is NOT a starting node");
+                remove.add(i);
             }
         }
+        System.out.println("Visited: " + visited);
+        System.out.println("To Remove: " + remove);
         return startV;
     }
 
@@ -109,6 +120,39 @@ public class DAG {
             i++;
             numIn = 0;
         }
+
+        System.out.println();
+
+        ArrayList req = new ArrayList();
+        int m=0;
+        int v = 1; //vert counter
+        while (v < numVertices){
+
+            for(int j = 1; j < numVertices; j++) {
+                req = new ArrayList();
+                if(matrix[j][v] == 1) {
+                    System.out.println("Path from " + j + " to " + v);
+                    for(int k = 1; k < numVertices; k++) {
+                        if(matrix[k][j] == 1){
+                            //System.out.println(j + " req " + k);
+                            req.add(k);
+                        }
+                    }
+                }
+                if(visited.containsAll(req)) {
+                    System.out.println("req " + req);
+                    if(!visited.contains(j))
+                        visited.add(j);
+                }
+            }
+
+            v++;
+
+        }
+        System.out.println();
+        System.out.println("Topo sort " + visited);
     }
+
+
 
 }
