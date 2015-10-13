@@ -13,9 +13,11 @@ public class DAG {
     private int numVertices;
     private int numEdges;
     private int[] inEdge;
-    private int startV;
-    private ArrayList visited = new ArrayList();
+    private int[] startV = new int[50];
+    private int[] visited = new int[50];
     private ArrayList remove = new ArrayList();
+    private int[] topologicalSortedSet;
+    private int[] visit = new int[50];
 
     public DAG(String inputFileName) throws Exception{
         this.inputFileName = inputFileName;
@@ -33,10 +35,11 @@ public class DAG {
         System.out.println();
         checkIncoming(adjMatrix);
         System.out.println();
-        startNode(inEdge);
+        //startNode(inEdge);
         System.out.println();
-        topSort(startV);
+        //topSort(startV);
         System.out.println();
+        topologicalSort(startV,adjMatrix);
 
     }
 
@@ -76,19 +79,20 @@ public class DAG {
             if(inEdge[i] == 1) {
                 System.out.print(" incoming edge");
             }
+
             System.out.println();
         }
 
         return inEdge;
     }
 
-    public int startNode(int[] checkVertex) {
+    public int[] startNode(int[] checkVertex) {
 
         for(int i = 1; i < numVertices; i++) {
             if(checkVertex[i] == 0) {
                 System.out.println("Vertex " + i + " is a starting node");
-                startV = i;
-                visited.add(i);
+                startV[i] = i;
+                visited[i] = 1;
                 //break;
             }
             else {
@@ -107,7 +111,7 @@ public class DAG {
         int[] tSort = new int[numVertices];
         int numIn = 0;
 
-        System.out.println("Topological Sort: " + vertex + " ");
+        //System.out.println("Topological Sort: " + vertex + " ");
 
         int i = 1;
         while (i < numVertices) {
@@ -122,9 +126,7 @@ public class DAG {
         }
 
         System.out.println();
-
         ArrayList req = new ArrayList();
-        int m=0;
         int v = 1; //vert counter
         while (v < numVertices){
 
@@ -134,23 +136,96 @@ public class DAG {
                     System.out.println("Path from " + j + " to " + v);
                     for(int k = 1; k < numVertices; k++) {
                         if(matrix[k][j] == 1){
-                            //System.out.println(j + " req " + k);
+                            System.out.println(j + " req " + k);
                             req.add(k);
                         }
+
                     }
+                    /*
+                    //find startNode, put into visited, redraw adjmatrix
+                    //compare with remove[]?
+                    if(visited.containsAll(req)) {
+                        //System.out.println("req " + req);
+                        if(!visited.contains(j)) {
+                            visited.add(j);
+                            remove.remove(j);
+                        }
+                    }
+                    */
+
                 }
-                if(visited.containsAll(req)) {
-                    System.out.println("req " + req);
-                    if(!visited.contains(j))
-                        visited.add(j);
-                }
+
             }
 
             v++;
-
         }
         System.out.println();
         System.out.println("Topo sort " + visited);
+    }
+
+    public int[] topologicalSort(int[] findSourceV, int[][] adjMatrix) {
+        topologicalSortedSet = new int[numVertices];
+        int startVertex = 0;
+        int i = 0;
+        int j = 0;
+        int arrSize = 0;
+        //Step 1: Find a Starting point from array we created findSourceVertices[]
+        //for(int i = 0; i < numTestV; i++){
+        while (arrSize < numVertices) { //keep going until it's done
+            i = 0;
+            while (i < numVertices) {
+                if (visit[i] == 0 && startV[i] == 0) {
+                    startVertex = i;
+
+                    System.out.println("Starting Vertex: " + startVertex);
+
+                    visit[i] = 1;
+                    topologicalSortedSet[j] = i;
+                    j++;
+
+                    arrSize++;   //increment size of topological array
+                    System.out.println("Size of topological arry is " + arrSize);
+                } else {
+                    i++;
+                }
+                //break;
+            }
+            //findStart();
+            startNode(inEdge);
+            //checkIncoming(adjMatrix);
+
+        }
+        //}
+
+        //System.out.println("Starting Vertex: " + startVertex);
+        System.out.println("Returned by Topological Sort");
+        for (int m = 0; m < numVertices; m++) {
+            System.out.println(topologicalSortedSet[m]);
+        }
+        return topologicalSortedSet;
+
+    }
+
+    public int[] findStart() {
+        System.out.println("Finding start");
+
+        startV = new int[numVertices]; //Initialize start point array
+        for (int m = 0; m < numVertices; m++) { //for column
+            if (visited[m] == 1) {
+                System.out.println(m + " is alreaqdy visited!");
+                //   //skip this one if it is already in the visited nodes
+            } else {
+                for (int j = 0; j < numVertices; j++) { //for row
+                    //System.out.println("j is " + j + " m is " + m + " value is " + testDag[m][j]);
+                    if (adjMatrix[m][j] == 1 && visited[j] == 0) { //check if incoming edge. This assumes that there is never an edge from vertex to itself. !!!ALSO CHECK THAT THE NODE THAT HAS AN EDGE TO IT HASN"T BEEN VISITED YET !!!
+                        startV[m] = 1; //If incoming edge exists, change value from zero to one.
+
+                    }
+
+                }
+            }
+        }
+        return startV; //Return array containing possible starting points
     }
 
 
