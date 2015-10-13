@@ -45,7 +45,7 @@ public class topSort {
 
     public void printTopSort() {
         startNode();
-        topologicalSort(sourceV, adjMatrix);
+        topSort(sourceV, adjMatrix);
         System.out.println();
         System.out.print("Topological Sort { ");
         for(int i = numVertices - 1; i > 0; i--) {
@@ -74,7 +74,7 @@ public class topSort {
         return sourceV;
     }
 
-    public static int[] topologicalSort(int[] source, int[][] matrix) {
+    public static int[] topSort(int[] source, int[][] matrix) {
         topSorted = new int[numVertices];
         int i = 0;
         int j = 0;
