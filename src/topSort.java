@@ -64,7 +64,7 @@ public class topSort {
         sourceV = new int[numVertices];
         for (int i = 0; i < numVertices; i++) {
             if (visited[i] == 0) {
-                for (int j = 0; j < numVertices; j++) { //for row
+                for (int j = 0; j < numVertices; j++) {
                     if (adjMatrix[i][j] == 1 && visited[j] == 0) {
                         sourceV[i] = 1;
                     }
