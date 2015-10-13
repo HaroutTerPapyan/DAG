@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c7a299d-9773-4be2-8cca-6c9cb333e62d" name="Default" comment="Topological sort works for 4b">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/topSort.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DAG.java" afterPath="$PROJECT_DIR$/src/DAG.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testCase2.txt" afterPath="$PROJECT_DIR$/testCase2.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/testDAG.java" afterPath="$PROJECT_DIR$/src/testDAG.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DAG.iws" />
@@ -505,7 +502,13 @@
       <option name="project" value="LOCAL" />
       <updated>1444699127061</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="complete rewrite of top sort alg, new file topSort.java">
+      <created>1444699184441</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1444699184441</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -558,7 +561,8 @@
     <MESSAGE value="num incoming edges for each vertex" />
     <MESSAGE value="Topological sort works for 4b" />
     <MESSAGE value="added testCase3" />
-    <option name="LAST_COMMIT_MESSAGE" value="added testCase3" />
+    <MESSAGE value="complete rewrite of top sort alg, new file topSort.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete rewrite of top sort alg, new file topSort.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
